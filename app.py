@@ -27,3 +27,4 @@ from views import *
 
 app.register_blueprint(user, url_prefix="/")
 app.register_blueprint(general, url_prefix="/")
+app.register_blueprint(item, url_prefix="/item")

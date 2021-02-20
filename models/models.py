@@ -24,6 +24,7 @@ class User(db.Model):
 
 class Item(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    img = db.Column(db.String(120), default="https://images.squarespace-cdn.com/content/v1/5b275e8b45776eccb6c16312/1569840334525-XJP98CCM5K84EJSBYBJ1/ke17ZwdGBToddI8pDm48kPoswlzjSVMM-SxOp7CV59BZw-zPPgdn4jUwVcJE1ZvWQUxwkmyExglNqGp0IvTJZamWLI2zvYWH8K3-s_4yszcp2ryTI0HqTOaaUohrI8PI6FXy8c9PWtBlqAVlUS5izpdcIXDZqDYvprRqZ29Pw0o/obst-shop.gif?format=750w")
     name = db.Column(db.String(120), unique=True, nullable=False)
     intro = db.Column(db.String(64), nullable=False)
     description = db.Column(db.Text)
