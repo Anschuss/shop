@@ -25,14 +25,21 @@ def registration_page():
 
 
 @user.route("/log", methods=["GET", "POST"])
-def login_user():
+def login():
     form = LoginForm()
     if request.method == "POST":
         user = User.query.filter(User.email == form.email.data).first()
         if user and bcrypt.check_password_hash(user.password, form.password.data):
             login_user(user, remember=form.remember.data)
-            return redirect(url_for(""))
+            return redirect(url_for("general.general_page"))
         else:
             flash("Login Unsuccessful.Pleas check your email or password")
 
     return render_template("user/login.html", form=form)
+
+
+@user.route("/logout")
+@login_required
+def logout():
+    logout_user()
+    return redirect("/")

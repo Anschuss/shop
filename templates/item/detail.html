@@ -21,9 +21,8 @@
                 </div>
             </div>
             <div class="col-md-4" style="margin-bottom: 40px">
-                <div class="btn-group">
-                    <a href="#" class="btn btn-primary">Warenkorb legen</a>
-                    <a href="#" class="btn btn-primary">Einkaufen fortfahren</a>
+                <div class="btn">
+                        <a href="{{ url_for("item.order_item", name=item.name) }}" class="btn btn-primary">Kaufen</a>
                 </div>
             </div>
         </div>
