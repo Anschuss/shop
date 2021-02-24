@@ -1,5 +1,6 @@
+import secrets
 from flask import Blueprint, redirect, url_for, render_template, flash, request
-from flask_login import current_user, logout_user, login_required, login_user
+from flask_login import logout_user,  login_user, login_required
 
 from ...forms import *
 from models import db, User
@@ -15,11 +16,11 @@ def registration_page():
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode("utf-8")
         user = User(name=form.name.data, surname=form.surname.data,
                     email=form.email.data, phone_number=form.phone_number.data,
-                    password=hashed_password, item=None)
+                    password=hashed_password)
         db.session.add(user)
         db.session.commit()
         flash("Your account is created")
-        return redirect(url_for("login_user"))
+        return redirect(url_for("user.login"))
 
     return render_template("user/reg.html", form=form)
 

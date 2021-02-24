@@ -16,6 +16,8 @@ flask-bcrypt = "==0.7.1"
 email-validator = "==1.1.2"
 celery = "==5.0.5"
 redis = "==3.5.3"
+flask-security-too = "*"
+flask-oauthlib = "*"
 
 [dev-packages]
 

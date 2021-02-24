@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, \
     redirect, request, url_for, flash
-from flask_login import current_user
+from flask_security import current_user
 from models import Item, City, Delivery, Payment
 
 from ...forms import OrderForm

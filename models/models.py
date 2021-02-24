@@ -8,17 +8,25 @@ def load_user(user_id):
     return User.query.get(int(user_id))
 
 
-class User(db.Model, UserMixin):
+class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(32), nullable=False)
     surname = db.Column(db.String(32), nullable=False)
     email = db.Column(db.String(64), unique=True)
     phone_number = db.Column(db.Integer, unique=True)
     password = db.Column(db.String(120))
-    item = db.Column(db.ARRAY(db.Integer))
+    role_id = db.Column(db.Integer, db.ForeignKey("role.id"), default=1)
 
     def __repr__(self):
         return f"User: {self.name}, {self.email}, {self.phone_number}"
+
+
+class Role(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    role = db.Column(db.String(32), unique=True)
+    description = db.Column(db.Text)
+
+    users = db.relationship(User, backref="role")
 
 
 class Item(db.Model):
@@ -32,7 +40,7 @@ class Item(db.Model):
     active = db.Column(db.Boolean, default=True)
 
     def __repr__(self):
-        return f"Item: {self.name}, {self.intro}, {self.price}"
+        return f"Item: {self.item_name}, {self.intro}, {self.price}"
 
 
 class Order(db.Model):
