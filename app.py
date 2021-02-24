@@ -3,11 +3,16 @@ from flask_migrate import Migrate
 
 from flask_bcrypt import Bcrypt
 
-from config import Configuration
+from config import Configuration, make_celery
 from models import db
 
 app = Flask(__name__)
 app.config.from_object(Configuration)
+
+### CELERY ###
+
+client = make_celery(app)
+client.conf.update(app.config)
 
 ### DB ###
 

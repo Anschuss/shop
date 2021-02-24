@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    {{ item.name }}
+    {{ item.item_name }}
 {% endblock %}
 
 {% block content %}
@@ -9,7 +9,7 @@
         <div class="row">
             <div class="col-12" style="margin-top: 20px;margin-bottom: 15px">
                 <h2>
-                    {{ item.name }}
+                    {{ item.item_name }}
                 </h2>
             </div>
             <div class="col-md-12">
@@ -22,7 +22,7 @@
             </div>
             <div class="col-md-4" style="margin-bottom: 40px">
                 <div class="btn">
-                        <a href="{{ url_for("item.order_item", name=item.name) }}" class="btn btn-primary">Kaufen</a>
+                        <a href="{{ url_for("item.order_item", name=item.item_name) }}" class="btn btn-primary">Kaufen</a>
                 </div>
             </div>
         </div>
