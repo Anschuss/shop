@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, \
     redirect, request, url_for, flash
-from flask_security import current_user
-from models import Item, City, Delivery, Payment
+from flask_login import current_user, login_required, user_accessed
+from models import Item, City, Delivery, Payment, Order
 
 from ...forms import OrderForm
 from .task import get_order
@@ -21,7 +21,7 @@ def order_item(name):
     form = OrderForm()
 
     if request.method == "POST":
-        order_info = {"name": form.name.data, "surname": form.surname.data, "phone": form.phone.data,
+        order_info = {"id": current_user.id, "phone": form.phone.data,
                       "item": item.item_name, "city": form.city.data, "delivery_type": form.delivery.data,
                       "payment": form.payment.data, "comments": form.comments.data, "price": item.price}
         get_order.delay(order_info)
@@ -38,3 +38,12 @@ def order_item(name):
     form.payment.choices = [payment.method for payment in Payment.query.all()]
 
     return render_template("item/order.html", form=form, item=item)
+
+
+@item.route("/<int:id>")
+@login_required
+def detail_order(id):
+    order = Order.query.filter(Order.id == id).first()
+    if current_user.id != order.user_id:
+        return render_template('error/404.html')
+    return render_template("item/order_detail.html", order=order)

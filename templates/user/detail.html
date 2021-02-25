@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {{ current_user.name }}
+{% endblock %}
+
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-12" style="margin-top: 20px;margin-bottom: 10px;">
+                <h2>
+                    {{ current_user.name }} {{ current_user.surname }}
+                </h2>
+            </div>
+            <div class="col-md-8">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">{{ current_user.email }}</li>
+                    <li class="list-group-item">{{ current_user.phone_number }}</li>
+                </ul>
+            </div>
+            <div class="col-12">
+                <h3>
+                    ihre Bestellung
+                </h3>
+            </div>
+            <div class="col-md-8">
+                {% for order in orders %}
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <a href="{{ url_for("item.detail_order", id=order.id) }}" class="nav-link">
+                                {{ order.item }}
+                            </a>
+                        </li>
+                    </ul>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

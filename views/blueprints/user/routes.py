@@ -1,9 +1,8 @@
-import secrets
 from flask import Blueprint, redirect, url_for, render_template, flash, request
-from flask_login import logout_user,  login_user, login_required
+from flask_login import logout_user, login_user, login_required, current_user
 
 from ...forms import *
-from models import db, User
+from models import db, User, Order
 from app import bcrypt
 
 user = Blueprint("user", __name__)
@@ -44,3 +43,11 @@ def login():
 def logout():
     logout_user()
     return redirect("/")
+
+
+@user.route("/account/<int:id>")
+def detail_user(id):
+    if current_user.id != id:
+        return render_template("error/404.html")
+    orders = Order.query.filter(Order.user_id == id).all()
+    return render_template("user/detail.html", orders=orders)

@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Order
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="display-4">
+                    {{ order.item }}
+                </h2>
+            </div>
+            <div class="col-md-8">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">{{ order.comments }}</li>
+                    <li class="list-group-item">{{ order.delivery_type }}</li>
+                    <li class="list-group-item">{{ order.order_city }}</li>
+                    <li class="list-group-item"><h5>{{ order.price }} €</h5></li>
+                </ul>
+            </div>
+            <div class="col-12">
+                {% if order.status == False %}
+                    <h4 class="display-6" style="color: #ffc107">
+                        nicht Schaffen
+                    </h4>
+                {% else %}
+                    <h4 class="display-6" style="color: #198754">
+                        Schaffen
+                    </h4>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

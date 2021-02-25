@@ -17,6 +17,8 @@ class User(UserMixin, db.Model):
     password = db.Column(db.String(120))
     role_id = db.Column(db.Integer, db.ForeignKey("role.id"), default=1)
 
+    order = db.relationship("Order", backref="user")
+
     def __repr__(self):
         return f"User: {self.name}, {self.email}, {self.phone_number}"
 
@@ -45,18 +47,18 @@ class Item(db.Model):
 
 class Order(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    customer_name = db.Column(db.String(32), nullable=False)
-    customer_surname = db.Column(db.String(32), nullable=False)
     phone = db.Column(db.String(32), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
     item = db.Column(db.String(32))
     order_city = db.Column(db.String(32), db.ForeignKey("city.city_name"))
     delivery_type = db.Column(db.String(32), db.ForeignKey("delivery.delivery_type"))
     payment_method = db.Column(db.String(32), db.ForeignKey("payment.method"))
     comments = db.Column(db.Text)
+    status = db.Column(db.Boolean, default=False)
     price = db.Column(db.Integer)
 
     def __repr__(self):
-        return f"Order: {self.username}, {self.items}, {self.comments}, {self.price}"
+        return f"Order: {self.user_id}, {self.item}, {self.comments}, {self.price}"
 
 
 class City(db.Model):

@@ -3,7 +3,7 @@ from wtforms import StringField, PasswordField, SubmitField, \
     BooleanField, SelectField, TextField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 
-from models import User, City, Delivery
+from models import User
 
 
 class RegForm(FlaskForm):
@@ -31,7 +31,7 @@ class RegForm(FlaskForm):
 
 class LoginForm(FlaskForm):
     email = StringField("email", validators=[DataRequired(), Email()])
-    password = StringField("password", validators=[DataRequired()])
+    password = PasswordField("password", validators=[DataRequired()])
     remember = BooleanField("Remember me")
     submit = SubmitField("Login")
 
