@@ -1,10 +1,10 @@
 from flask import Blueprint, render_template, \
     redirect, request, url_for, flash
 from flask_login import current_user, login_required, user_accessed
-from models import Item, City, Delivery, Payment, Order
+from models import db, Item, City, Delivery, Payment, Order
 
-from ...forms import OrderForm
-from .task import get_order
+from ...forms import OrderForm, UpdateOrder
+from .task import get_order, get_status
 
 item = Blueprint("item", __name__)
 
@@ -40,10 +40,20 @@ def order_item(name):
     return render_template("item/order.html", form=form, item=item)
 
 
-@item.route("/<int:id>")
+@item.route("/<int:id>", methods=["GET", "POST"])
 @login_required
 def detail_order(id):
     order = Order.query.filter(Order.id == id).first()
-    if current_user.id != order.user_id:
+    form = UpdateOrder()
+
+    if request.method == "POST":
+        get_status.delay({"status": form.status.data, "id": id})
+
+        db.session.commit()
+        return redirect(url_for("user.manager_page"))
+
+    if current_user.role_id == 2:
+        return render_template("item/order_detail.html", order=order, form=form)
+    elif current_user.id != order.user_id and current_user.role_id != 2:
         return render_template('error/404.html')
     return render_template("item/order_detail.html", order=order)

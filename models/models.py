@@ -58,7 +58,7 @@ class Order(db.Model):
     price = db.Column(db.Integer)
 
     def __repr__(self):
-        return f"Order: {self.user_id}, {self.item}, {self.comments}, {self.price}"
+        return f"{self.item}: {self.price}€, {self.status}"
 
 
 class City(db.Model):

@@ -21,16 +21,42 @@
                 </ul>
             </div>
             <div class="col-12">
-                {% if order.status == False %}
-                    <h4 class="display-6" style="color: #ffc107">
-                        nicht Schaffen
-                    </h4>
+                {% if current_user.role_id == 2 %}
+                    <div class="conten-section" style="margin: 30px">
+                    <form method="POST">
+                        {{ form.hidden_tag() }}
+                        <fieldset class="form-group">
+                            <legend class="border-bottom mb-4">Join Today</legend>
+                            <div class="form-group">
+                                {{ form.status.label(class="form-control-label") }}
+
+                                {% if form.status.errors %}
+                                    {{ form.status(class="form-select form-control-lg is-invalid") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.status.errors %}
+                                            <spen>{{ error }}</spen>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.status(class="form-select form-control-lg") }}
+                                {% endif %}
+                            </div>
+                            <div class="form-group" style="margin: 20px">
+                                {{ form.submit(class="btn btn-outline-info") }}
+                            </div>
+                    </form>
                 {% else %}
-                    <h4 class="display-6" style="color: #198754">
-                        Schaffen
-                    </h4>
+                    {% if order.status == False %}
+                        <h4 class="display-6" style="color: #ffc107">
+                            nicht Schaffen
+                        </h4>
+                    {% else %}
+                        <h4 class="display-6" style="color: #198754">
+                            Schaffen
+                        </h4>
+                    {% endif %}
                 {% endif %}
+                </div>
             </div>
         </div>
-    </div>
 {% endblock %}

@@ -49,3 +49,8 @@ class OrderForm(FlaskForm):
                                                   Length(min=10, max=1000)])
 
     submit = SubmitField("submit")
+
+
+class UpdateOrder(FlaskForm):
+    status = SelectField("status", choices=["Nicht Schaffen", "Schaffen"])
+    submit = SubmitField("submit")

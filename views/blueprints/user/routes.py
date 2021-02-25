@@ -51,3 +51,11 @@ def detail_user(id):
         return render_template("error/404.html")
     orders = Order.query.filter(Order.user_id == id).all()
     return render_template("user/detail.html", orders=orders)
+
+
+@user.route("/order")
+def manager_page():
+    if current_user.role_id != 2:
+        return render_template("error/404.html")
+    orders = Order.query.all()
+    return render_template("user/manage.html", orders=orders)
