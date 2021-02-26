@@ -1,5 +1,5 @@
 from app import client
-from models import db, Order, Delivery
+from login_and_model import db, Order, Delivery
 
 
 def get_price(item_price, delivery_type):

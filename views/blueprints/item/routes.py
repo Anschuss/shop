@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, \
     redirect, request, url_for, flash
-from flask_login import current_user, login_required, user_accessed
-from models import db, Item, City, Delivery, Payment, Order
+from flask_login import current_user, login_required
+from login_and_model import db, Item, City, Delivery, Payment, Order
 
 from ...forms import OrderForm, UpdateOrder
 from .task import get_order, get_status
