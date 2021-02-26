@@ -1,0 +1,163 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    order
+{% endblock %}
+
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h2>
+                    Befehl {{ item.item_name }}
+                </h2>
+            </div>
+            <div class="col-md-8">
+                <form method="POST">
+                    {{ form.hidden_tag() }}
+                    <div class="accordion" id="accordionExample">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingOne">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    Kundenname
+                                </button>
+                            </h2>
+                            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                                 data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    <div class="form-group">
+                                        {{ form.name.label(class="form-control-label") }}
+                                        {% if form.name.errors %}
+                                            {{ form.name(class="form-control form-control-lg is-invalid") }}
+                                            <div class="invalid-feedback">
+                                                {% for error in form.name.errors %}
+                                                    <spen>{{ error }}</spen>
+                                                {% endfor %}
+                                            </div>
+                                        {% else %}
+                                            {{ form.name(class="form-control form-control-lg") }}
+                                        {% endif %}
+                                    </div>
+                                    <div class="form-group">
+                                        {{ form.surname.label(class="form-control-label") }}
+                                        {% if form.surname.errors %}
+                                            {{ form.surname(class="form-control form-control-lg is-invalid") }}
+                                            <div class="invalid-feedback">
+                                                {% for error in form.surname.errors %}
+                                                    <spen>{{ error }}</spen>
+                                                {% endfor %}
+                                            </div>
+                                        {% else %}
+                                            {{ form.surname(class="form-control form-control-lg") }}
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingTwo">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                    Stadt und ,Zahlungsart Versandart
+                                </button>
+                            </h2>
+                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+                                 data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    <div class="form-group">
+                                        {{ form.city.label(class="form-control-label") }}
+                                        {% if form.city.errors %}
+                                            {{ form.city(class="form-select form-control-lg is-invalid") }}
+                                            <div class="invalid-feedback">
+                                                {% for error in form.city.errors %}
+                                                    <spen>{{ error }}</spen>
+                                                {% endfor %}
+                                            </div>
+                                        {% else %}
+                                            {{ form.city(class="form-select form-control-lg") }}
+                                        {% endif %}
+                                    </div>
+                                    <div class="form-group">
+                                        {{ form.payment.label(class="form-control-label") }}
+                                        {% if form.payment.errors %}
+                                            {{ form.payment(class="form-select form-control-lg is-invalid") }}
+                                            <div class="invalid-feedback">
+                                                {% for error in form.payment.errors %}
+                                                    <spen>{{ error }}</spen>
+                                                {% endfor %}
+                                            </div>
+                                        {% else %}
+                                            {{ form.payment(class="form-select form-control-lg") }}
+                                        {% endif %}
+                                    </div>
+                                    <div class="form-group">
+                                        {{ form.delivery.label(class="form-control-label") }}
+                                        {% if form.delivery.errors %}
+                                            {{ form.delivery(class="form-select form-control-lg is-invalid") }}
+                                            <div class="invalid-feedback">
+                                                {% for error in form.delivery.errors %}
+                                                    <spen>{{ error }}</spen>
+                                                {% endfor %}
+                                            </div>
+                                        {% else %}
+                                            {{ form.delivery(class="form-select form-control-lg") }}
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingThree">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseThree" aria-expanded="false"
+                                    aria-controls="collapseThree">
+                                Handynummer und Kommentar
+                            </button>
+                        </h2>
+                        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
+                             data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                <div class="form-group">
+                                    {{ form.phone.label(class="form-control-label") }}
+                                    {% if form.phone.errors %}
+                                        {{ form.phone(class="form-control form-control-lg is-invalid") }}
+                                        <div class="invalid-feedback">
+                                            {% for error in form.phone.errors %}
+                                                <spen>{{ error }}</spen>
+                                            {% endfor %}
+                                        </div>
+                                    {% else %}
+                                        {{ form.phone(class="form-control form-control-lg") }}
+                                    {% endif %}
+                                </div>
+                                <div class="form-group">
+                                    {{ form.comments.label(class="form-control-label") }}
+                                    {% if form.comments.errors %}
+                                        {{ form.comments(class="form-control form-control-lg is-invalid") }}
+                                        <div class="invalid-feedback">
+                                            {% for error in form.comments.errors %}
+                                                <spen>{{ error }}</spen>
+                                            {% endfor %}
+                                        </div>
+                                    {% else %}
+                                        {{ form.comments(class="form-control form-control-lg") }}
+                                    {% endif %}
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin: 20px">
+                        {{ form.submit(class="btn btn-outline-info") }}
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {{ item.item_name }}
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-12" style="margin-top: 20px;margin-bottom: 15px">
+                <h2>
+                    {{ item.item_name }}
+                </h2>
+            </div>
+            <div class="col-md-12">
+                <figure class="figure">
+                    <img src="{{ item.img }}" class="figure-img img-fluid rounded" alt="{{ item.name }}">
+                </figure>
+                <div align="justify" class="col-md-6" style="margin-top: 20px">
+                    <p class="text-start">{{ item.description }}</p>
+                </div>
+            </div>
+            <div class="col-md-4" style="margin-bottom: 40px">
+                <div class="btn">
+                        <a href="{{ url_for("item.order_item", name=item.item_name) }}" class="btn btn-primary">Kaufen</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

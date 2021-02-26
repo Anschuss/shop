@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Order
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="display-4">
+                    {{ order.item }}
+                </h2>
+            </div>
+            <div class="col-md-8">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">{{ order.comments }}</li>
+                    <li class="list-group-item">{{ order.delivery_type }}</li>
+                    <li class="list-group-item">{{ order.order_city }}</li>
+                    <li class="list-group-item"><h5>{{ order.price }} €</h5></li>
+                </ul>
+            </div>
+            <div class="col-12">
+                {% if current_user.role_id == 2 %}
+                    <div class="conten-section" style="margin: 30px">
+                    <form method="POST">
+                        {{ form.hidden_tag() }}
+                        <fieldset class="form-group">
+                            <legend class="border-bottom mb-4">Join Today</legend>
+                            <div class="form-group">
+                                {{ form.status.label(class="form-control-label") }}
+
+                                {% if form.status.errors %}
+                                    {{ form.status(class="form-select form-control-lg is-invalid") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.status.errors %}
+                                            <spen>{{ error }}</spen>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.status(class="form-select form-control-lg") }}
+                                {% endif %}
+                            </div>
+                            <div class="form-group" style="margin: 20px">
+                                {{ form.submit(class="btn btn-outline-info") }}
+                            </div>
+                    </form>
+                {% else %}
+                    {% if order.status == False %}
+                        <h4 class="display-6" style="color: #ffc107">
+                            nicht Schaffen
+                        </h4>
+                    {% else %}
+                        <h4 class="display-6" style="color: #198754">
+                            Schaffen
+                        </h4>
+                    {% endif %}
+                {% endif %}
+                </div>
+            </div>
+        </div>
+{% endblock %}
