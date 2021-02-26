@@ -3,7 +3,7 @@ from wtforms import StringField, PasswordField, SubmitField, \
     BooleanField, SelectField, TextField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 
-from models import User
+from login_and_model import User
 
 
 class RegForm(FlaskForm):

@@ -15,7 +15,7 @@ client = make_celery(app)
 client.conf.update(app.config)
 
 ### DB ###
-from models import db, User, Order, Item
+from login_and_model import db, Order, Item
 
 db.init_app(app)
 migrate = Migrate(app, db)
@@ -23,7 +23,7 @@ migrate = Migrate(app, db)
 ### Login ###
 
 bcrypt = Bcrypt(app)
-from login import login
+from login_and_model import login
 
 login.init_app(app)
 

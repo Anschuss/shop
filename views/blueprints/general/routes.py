@@ -1,5 +1,5 @@
-from flask import Blueprint, request, render_template, redirect, url_for
-from models import Item
+from flask import Blueprint, render_template
+from login_and_model import Item
 
 
 general = Blueprint("general", __name__)
