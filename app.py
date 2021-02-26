@@ -1,10 +1,10 @@
 from flask import Flask
 from flask_migrate import Migrate
-
 from flask_bcrypt import Bcrypt
+from flask_admin import Admin
+from flask_admin.contrib.sqla import ModelView
 
 from config import Configuration, make_celery
-from models import db
 
 app = Flask(__name__)
 app.config.from_object(Configuration)
@@ -15,6 +15,7 @@ client = make_celery(app)
 client.conf.update(app.config)
 
 ### DB ###
+from models import db, User, Order, Item
 
 db.init_app(app)
 migrate = Migrate(app, db)
@@ -33,3 +34,12 @@ from views import *
 app.register_blueprint(user, url_prefix="/")
 app.register_blueprint(general, url_prefix="/")
 app.register_blueprint(item, url_prefix="/item")
+
+### Admin ###
+
+admin = Admin(app)
+admin.add_view(ModelView(User, db.session, endpoint="users_"))
+admin.add_view(ModelView(Item, db.session, endpoint="item_"))
+admin.add_view(ModelView(Order, db.session, endpoint="order_"))
+
+

@@ -13,14 +13,14 @@ class User(UserMixin, db.Model):
     name = db.Column(db.String(32), nullable=False)
     surname = db.Column(db.String(32), nullable=False)
     email = db.Column(db.String(64), unique=True)
-    phone_number = db.Column(db.Integer, unique=True)
+    phone_number = db.Column(db.BIGINT, unique=True)
     password = db.Column(db.String(120))
     role_id = db.Column(db.Integer, db.ForeignKey("role.id"), default=1)
 
     order = db.relationship("Order", backref="user")
 
     def __repr__(self):
-        return f"User: {self.name}, {self.email}, {self.phone_number}"
+        return f"{self.email}"
 
 
 class Role(db.Model):
@@ -29,6 +29,9 @@ class Role(db.Model):
     description = db.Column(db.Text)
 
     users = db.relationship(User, backref="role")
+
+    def __repr__(self):
+        return f"{self.role}"
 
 
 class Item(db.Model):
@@ -47,7 +50,7 @@ class Item(db.Model):
 
 class Order(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    phone = db.Column(db.String(32), nullable=False)
+    phone = db.Column(db.BIGINT)
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
     item = db.Column(db.String(32))
     order_city = db.Column(db.String(32), db.ForeignKey("city.city_name"))
@@ -69,7 +72,7 @@ class City(db.Model):
     order = db.relationship(Order, backref="city")
 
     def __repr__(self):
-        return f"City: {self.id}, {self.city_name}"
+        return f"{self.city_name}"
 
 
 class Delivery(db.Model):
@@ -80,9 +83,15 @@ class Delivery(db.Model):
 
     order = db.relationship(Order, backref="delivery")
 
+    def __repr__(self):
+        return f"{self.delivery_type}"
+
 
 class Payment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     method = db.Column(db.String(64), unique=True)
 
     order = db.relationship(Order, backref="payment")
+
+    def __repr__(self):
+        return f"{self.method}"
